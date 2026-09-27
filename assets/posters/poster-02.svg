@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Video poster placeholder">
+  <defs>
+    <radialGradient id="bg" cx="32%" cy="18%" r="120%">
+      <stop offset="0%" stop-color="#1B1E25"/>
+      <stop offset="100%" stop-color="#14161B"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <!-- hairline safe-margin frame -->
+  <rect x="40" y="40" width="1200" height="640" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+  <rect x="548" y="238" width="184" height="184" rx="42" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+  <path d="M614 292 L678 330 L614 368 Z" fill="#3B82F6"/>
+  <text x="640" y="490" text-anchor="middle" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="21" letter-spacing="6" fill="rgba(255,255,255,0.42)">VIDEO 02</text>
+  <!-- brand marks -->
+  <circle cx="64" cy="66" r="4" fill="#3B82F6"/>
+  <text x="80" y="73" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="19" letter-spacing="7" fill="rgba(255,255,255,0.55)" font-weight="600">VGROW</text>
+  <text x="1216" y="664" text-anchor="end" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="17" letter-spacing="4" fill="rgba(255,255,255,0.32)">SAMPLE 02</text>
+</svg>

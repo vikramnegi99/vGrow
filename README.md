@@ -41,8 +41,8 @@ The four shipped videos are **temporary public sample clips** so the player work
 out of the box. Replace them before sharing the site with clients:
 
 1. Upload your video to Cloudinary.
-2. in the TCloudinary Media Library, copy the public **delivery URL+*:
-  `https://res.cloudinary.com/<your-cloud>/video/upload/v1234567890/abc123.mp4`
+2. In the Cloudinary Media Library, copy the public **delivery URL**:
+   `https://res.cloudinary.com/<your-cloud>/video/upload/v1234567890/abc123.mp4`
 3. Paste it into the `video` field of an item in `videos`.
 4. For the `poster` (the still frame shown before play), either upload an image
    and use its URL, or let Cloudinary grab a frame: change the URL extension to
@@ -71,7 +71,7 @@ site shows you a reminder instead of a broken link.
 
 The thumbnails in `assets/thumbnails/` and posters in `assets/posters/` are
 branded placeholder graphics. Drop your real `.jpg` / `.png` / `.webp` exports
-into those folders (1200×720 works best) and point the `image` / `poster` fields
+into those folders (1280×720 works best) and point the `image` / `poster` fields
 in `data.js` at them. Images are lazy-loaded and never cropped or distorted
 (16:9 aspect ratio).
 

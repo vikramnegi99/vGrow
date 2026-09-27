@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Thumbnail placeholder">
+  <defs>
+    <radialGradient id="bg" cx="32%" cy="18%" r="120%">
+      <stop offset="0%" stop-color="#1B1E25"/>
+      <stop offset="100%" stop-color="#14161B"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <!-- hairline safe-margin frame -->
+  <rect x="40" y="40" width="1200" height="640" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+  <line x1="360" y1="450" x2="920" y2="450" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+  <polyline points="380,430 520,378 640,398 780,300 900,258" fill="none" stroke="rgba(255,255,255,0.34)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="520" cy="378" r="5" fill="rgba(255,255,255,0.5)"/>
+  <circle cx="640" cy="398" r="5" fill="rgba(255,255,255,0.5)"/>
+  <path d="M900,258 L872,254 M900,258 L896,286" stroke="#3B82F6" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="380" cy="430" r="6" fill="#3B82F6"/>
+  <!-- brand marks -->
+  <circle cx="64" cy="66" r="4" fill="#3B82F6"/>
+  <text x="80" y="73" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="19" letter-spacing="7" fill="rgba(255,255,255,0.55)" font-weight="600">VGROW</text>
+  <text x="1216" y="664" text-anchor="end" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="17" letter-spacing="4" fill="rgba(255,255,255,0.32)">SAMPLE 03</text>
+</svg>

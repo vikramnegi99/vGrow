@@ -251,7 +251,7 @@
       "</div></div>" +
       '<div class="lightbox-stage">' +
       '<button class="lb-btn lb-nav prev" type="button" aria-label="Previous image">' + ICONS.prev + "</button>" +
-      '"<img alt=\"\" decoding=\"async\">"' +
+      '<img alt="" decoding="async">' +
       '<button class="lb-btn lb-nav next" type="button" aria-label="Next image">' + ICONS.next + "</button>" +
       "</div>" +
       '<div class="lightbox-caption"></div>';

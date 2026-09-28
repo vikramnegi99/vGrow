@@ -37,17 +37,15 @@ limit on how many items you add.
 
 ## Using your Cloudinary videos
 
-The four shipped videos are **temporary public sample clips** so the player works
-out of the box. Replace them before sharing the site with clients:
+The videos in `assets/js/data.js` are your Cloudinary assets, embedded with
+their public **delivery URLs**. To add another one:
 
 1. Upload your video to Cloudinary.
 2. In the Cloudinary Media Library, copy the public **delivery URL**:
    `https://res.cloudinary.com/<your-cloud>/video/upload/v1234567890/abc123.mp4`
 3. Paste it into the `video` field of an item in `videos`.
-4. For the `poster` (the still frame shown before play), either upload an image
-   and use its URL, or let Cloudinary grab a frame: change the URL extension to
-   `.jpg` and add `so_<seconds>` — e.g. `.../video/upload/so_2/abc123.jpg`
-   gives the frame at second 2.
+4. For the `poster` (the still frame shown before play), use the Cloudinary
+   frame image (same URL with a `.jpg` extension), or any image URL.
 5. Update `title`, `category` and `description`.
 
 Only public delivery URLs are needed. **Never put API keys or secrets in this
@@ -69,11 +67,12 @@ site shows you a reminder instead of a broken link.
 
 ## Replace the placeholder images
 
-The thumbnails in `assets/thumbnails/` and posters in `assets/posters/` are
-branded placeholder graphics. Drop your real `.jpg` / `.png` / `.webp` exports
-into those folders (1280×720 works best) and point the `image` / `poster` fields
-in `data.js` at them. Images are lazy-loaded and never cropped or distorted
-(16:9 aspect ratio).
+The thumbnails in `assets/js/data.js` point to your Cloudinary images, so you
+can add or replace work just by pasting new delivery URLs - the
+`assets/thumbnails/` and `assets/posters/` folders only hold starter SVGs you
+can ignore or delete. Images are lazy-loaded, optimised (`q_auto,f_auto`), and
+never distorted (16:9 grid cards). If you later remove the local SVG files,
+also remove them from `data.js`.
 
 ## Deploy on GitHub Pages
 

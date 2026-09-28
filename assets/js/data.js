@@ -1,7 +1,9 @@
 /* VGrow portfolio data - the only file you edit to update the site.
    Add a copy of any {...} block to add a project; delete one to remove it.
-   Titles, categories, descriptions and images below are placeholders:
-   replace them with your real work. Full instructions: README.md */
+   Images and videos below are hosted on Cloudinary (public delivery URLs).
+   To add more of your own: upload to Cloudinary, copy the public
+   delivery URL, and paste it into the "image" / "video" field.
+   Full instructions: README.md */
 
 const SITE = {
   name: "VGrow",
@@ -13,64 +15,54 @@ const SITE = {
 };
 
 /* Thumbnails - "Selected Thumbnail Work".
-   image: put a file in assets/thumbnails/ and use "assets/thumbnails/yourfile.jpg",
-   or paste any public Cloudinary image URL. */
+   Each entry shows one design. The two variant pairs below use a small
+   Cloudinary crop (c_crop) to display each half of a stacked variants
+   sheet as its own card - you can also just paste any image URL. */
 
 const thumbnails = [
-  { title: "Tech Review - Channel Series", category: "YouTube Thumbnail",
-    description: "High-contrast composition with a clear focal point and readable text hierarchy.",
-    image: "assets/thumbnails/thumb-01.svg" },
-  { title: "Gaming Highlights", category: "YouTube Thumbnail",
-    description: "Bold colour blocking and expressive crop built for feed visibility.",
-    image: "assets/thumbnails/thumb-02.svg" },
-  { title: "Finance Explainer", category: "YouTube Thumbnail",
-    description: "Clean, trustworthy layout with strong typographic hierarchy.",
-    image: "assets/thumbnails/thumb-03.svg" },
-  { title: "Podcast Episode Cover", category: "Thumbnail Design",
-    description: "Consistent episodic design system for a recurring show format.",
-    image: "assets/thumbnails/thumb-04.svg" },
-  { title: "Vlog Series Key Art", category: "Thumbnail Design",
-    description: "Story-driven key art designed as a recognisable series style.",
-    image: "assets/thumbnails/thumb-05.svg" },
-  { title: "Tutorial - Before / After", category: "YouTube Thumbnail",
-    description: "Split composition that promises a clear transformation.",
-    image: "assets/thumbnails/thumb-06.svg" },
-  { title: "Product Launch Teaser", category: "Social Content",
-    description: "Minimal launch visual designed to stop the scroll.",
-    image: "assets/thumbnails/thumb-07.svg" },
-  { title: "Documentary Style Cover", category: "Thumbnail Design",
-    description: "Editorial, cinematic treatment for long-form storytelling.",
-    image: "assets/thumbnails/thumb-08.svg" },
+  { title: "10X More Clients", category: "YouTube Thumbnail",
+    description: "Result-driven business thumbnail with revenue graphics and a bold benefit promise.",
+    image: "https://res.cloudinary.com/acqrwkcn/image/upload/q_auto,f_auto/v1790585898/58ec5073a34d18a0bbdff159594e1f00.jpg" },
+  { title: "Worst to Best - Cinematic Ranking", category: "YouTube Thumbnail",
+    description: "Tier-list style ranking design with colour-coded panels and expressive portraits.",
+    image: "https://res.cloudinary.com/acqrwkcn/image/upload/q_auto,f_auto/v1790585898/da52f1189de617451ad0554dc729859e.jpg" },
+  { title: "Chess Opening Guide", category: "YouTube Thumbnail",
+    description: "Educational chess thumbnail with metallic accent props and bold, localised text.",
+    image: "https://res.cloudinary.com/acqrwkcn/image/upload/q_auto,f_auto/v1790585896/f4a9e6a7fd960bfe32d56e531a26eb8f.jpg" },
+  { title: "PUBG Live - Gameplay", category: "Gaming Thumbnail",
+    description: "High-energy gaming thumbnail with a bright LIVE badge and expressive subject framing.",
+    image: "https://res.cloudinary.com/acqrwkcn/image/upload/c_crop,h_419,w_736,x_0,y_0/q_auto,f_auto/v1790585897/f66b09eb7d4d425facc622f2d2daba86.jpg" },
+  { title: "PUBG Live - Reaction", category: "Gaming Thumbnail",
+    description: "Second design of the gaming series - expressive close-up with prop detail and environment.",
+    image: "https://res.cloudinary.com/acqrwkcn/image/upload/c_crop,h_419,w_736,x_0,y_420/q_auto,f_auto/v1790585897/f66b09eb7d4d425facc622f2d2daba86.jpg" },
+  { title: "Upwork 2026 - Light Variant", category: "YouTube Thumbnail",
+    description: "Light variant of a freelancing-update thumbnail with a clear focal point and text hierarchy.",
+    image: "https://res.cloudinary.com/acqrwkcn/image/upload/c_crop,h_460,w_736,x_0,y_0/q_auto,f_auto/v1790585899/924047d72d3bc8ec15e5307d991538da.jpg" },
+  { title: "Upwork 2026 - Dark Variant", category: "YouTube Thumbnail",
+    description: "Dark, high-production variant of the same concept with a moody backdrop and glowing accents.",
+    image: "https://res.cloudinary.com/acqrwkcn/image/upload/c_crop,h_460,w_736,x_0,y_460/q_auto,f_auto/v1790585899/924047d72d3bc8ec15e5307d991538da.jpg" },
+  { title: "Thumbnail Redesign - Before / After", category: "Thumbnail Redesign",
+    description: "Side-by-side redesign showing the transformation from a rough draft to a stylised final.",
+    image: "https://res.cloudinary.com/acqrwkcn/image/upload/q_auto,f_auto/v1790585896/4732c4b30265695518bd67e88bf93234.jpg" },
 ];
 
-/* Videos - "Video Work".
-   HOW TO USE YOUR CLOUDINARY VIDEOS:
-   1. Upload the video to Cloudinary.
-   2. Copy its public delivery URL, like:
-      https://res.cloudinary.com/<your-cloud>/video/upload/v1234567890/xyz123.mp4
-      (public URL only - never paste API keys or secrets here)
-   3. Paste it into the "video" field of an item below.
-   4. Poster: paste an image URL into "poster", or let Cloudinary grab a frame:
-      change the URL extension to .jpg and add so_2 for the frame at second 2.
-   5. Update title, category, description.
-   The clips below are temporary public samples - replace them before
-   sharing the site with clients. */
+/* Videos - "Video Work". Each entry is a Cloudinary-hosted video
+   (public delivery URL) that plays directly inside the page.
+   To add another: upload to Cloudinary, copy the public delivery URL,
+   paste it into "video", and use its .jpg frame (or your own image)
+   as "poster". */
 
 const videos = [
-  { title: "Short-Form Sample Edit", category: "Short-Form Editing",
-    description: "Vertical edit with paced cuts, captions and motion kept tight for social feeds.",
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    poster: "assets/posters/poster-01.svg" },
-  { title: "Long-Form Sample Edit", category: "Long-Form Editing",
-    description: "Structured YouTube edit focused on storytelling, pacing and clean presentation.",
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    poster: "assets/posters/poster-02.svg" },
-  { title: "Social Media Sample Edit", category: "Social Media Editing",
-    description: "Fast, platform-ready content designed to hold attention in the feed.",
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-    poster: "assets/posters/poster-03.svg" },
-  { title: "Storytelling Sample Edit", category: "Content-Focused Editing",
-    description: "Narrative-first edit where every cut supports the story being told.",
-    video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-    poster: "assets/posters/poster-04.svg" },
+  { title: "Creative Kings Studio", category: "Short-Form Editing",
+    description: "Vertical edit with a strong hook, captions, motion graphics and B-roll around a talking-head performance.",
+    video: "https://res.cloudinary.com/acqrwkcn/video/upload/v1790586190/CREATIVE_KINGS_STUDIO.mp4",
+    poster: "https://res.cloudinary.com/acqrwkcn/video/upload/q_auto/v1790586190/CREATIVE_KINGS_STUDIO.jpg" },
+  { title: "Orbitonmedia", category: "Social Media Editing",
+    description: "Fast vertical reel with tight pacing, punch-in crops and readable captions.",
+    video: "https://res.cloudinary.com/acqrwkcn/video/upload/v1790586126/Orbitonmedia.mp4",
+    poster: "https://res.cloudinary.com/acqrwkcn/video/upload/q_auto/v1790586126/Orbitonmedia.jpg" },
+  { title: "GDAI Shovo", category: "Content-Focused Editing",
+    description: "Highlight-style edit with dynamic layouts, bold number callouts and multi-speaker framing.",
+    video: "https://res.cloudinary.com/acqrwkcn/video/upload/v1790586125/GDAI_Shovo.mp4",
+    poster: "https://res.cloudinary.com/acqrwkcn/video/upload/q_auto/v1790586125/GDAI_Shovo.jpg" },
 ];

@@ -1,7 +1,7 @@
 /* ======
    VGrow — interactions
    Renders the portfolio from data.js and wires up:
-   nav / mobile menu / scroll reveal / thumbnail lightbox / custom video player
+   nav / mobile menu / scroll reveal / thumbnail lightbox / video cards (native HTML5 player)
    ====== */
 (function () {
   "use strict";
@@ -14,17 +14,7 @@
     d.textContent = String(s == null ? "" : s);
     return d.textContent;
   }
-  function fmtTime(t) {
-    if (!isFinite(t) || t < 0) t = 0;
-    var m = Math.floor(t / 60), s = Math.floor(t % 60);
-    return m + ":" + (s < 10 ? "0" : "") + s;
-  }
   var ICONS = {
-    play: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>',
-    pause: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
-    volHigh: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.5v5h3.2L12 19V5L7.2 9.5H4z"/><path d="M14.5 8.6a4.6 4.6 0 0 1 0 6.8v-1.9a2.9 2.9 0 0 0 0-3z"/><path d="M14.5 5.8a7.4 7.4 0 0 1 0 12.4v-1.9a5.6 5.6 0 0 0 0-8.6z"/></svg>',
-    volMute: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9.5v5h3.2L12 19V5L7.2 9.5H4z"/><path d="m15.2 9.8 1.1-1.1 4.2 4.2-1.1 1.1z" transform="translate(-2.2 -1.8)"/><path d="M17.4 8.1l1.1 1.1-4.2 4.2-1.1-1.1z" transform="translate(2 -1.5)"/></svg>',
-    expand: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     prev: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
     next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
@@ -51,31 +41,19 @@
   }
 
   /* ======
-     Render: videos + custom player
+     Render: videos — plain HTML5 <video> with native controls.
+     The browser's own play/pause, seek, volume and fullscreen controls
+     are used, which work on every device without any custom JS.
      ====== */
   var videoGrid = $("#videoGrid");
   if (videoGrid && videos) {
-    videoGrid.innerHTML = videos.map(function (v, i) {
+    videoGrid.innerHTML = videos.map(function (v) {
       return (
         '<article class="video-card">' +
-        '<div class="player" tabindex="0" role="group" aria-label="Video player: ' + esc(v.title) + '">' +
+        '<div class="player">' +
         '<video src="' + esc(v.video) + '" poster="' + esc(v.poster) +
-        '" preload="metadata" playsinline></video>' +
-        '<div class="player-overlay"></div>' +
-        '<button class="player-bigplay" type="button" aria-label="Play video: ' + esc(v.title) + '">' +
-        ICONS.play + "</button>" +
-        '<div class="player-controls">' +
-        '<button class="ctl-btn ctl-play" type="button" aria-label="Play">' + ICONS.play + "</button>" +
-        '<div class="player-progress" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="-1">' +
-        '<div class="track"><div class="buffered"></div><div class="played"></div><div class="knob"></div></div>' +
+        '" preload="metadata" playsinline controls></video>' +
         "</div>" +
-        '<span class="player-time"><span class="t-cur">0:00</span> / <span class="t-dur">0:00</span></span>' +
-        '<div class="player-volume">' +
-        '<button class="ctl-btn ctl-mute" type="button" aria-label="Mute">' + ICONS.volHigh + "</button>" +
-        '<input type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume">' +
-        "</div>" +
-        '<button class="ctl-btn ctl-fs" type="button" aria-label="Fullscreen">' + ICONS.expand + "</button>" +
-        "</div></div>" +
         '<div class="video-info">' +
         '<span class="video-tag">' + esc(v.category) + "</span>" +
         "<h3>" + esc(v.title) + "</h3>" +
@@ -83,154 +61,6 @@
         "</div></article>"
       );
     }).join("");
-
-    $$(".player", videoGrid).forEach(initPlayer);
-  }
-
-  function initPlayer(player) {
-    var video = $("video", player);
-    var bigPlay = $(".player-bigplay", player);
-    var playBtn = $(".ctl-play", player);
-    var muteBtn = $(".ctl-mute", player);
-    var fsBtn = $(".ctl-fs", player);
-    var progress = $(".player-progress", player);
-    var playedEl = $(".played", progress);
-    var bufferedEl = $(".buffered", progress);
-    var knob = $(".knob", progress);
-    var curEl = $(".t-cur", player);
-    var durEl = $(".t-dur", player);
-    var volInput = $('input[type="range"]', player);
-    var hideTimer = null;
-
-    function isPlaying() { return !video.paused && !video.ended; }
-
-    function toggle() {
-      if (isPlaying()) video.pause(); else video.play();
-    }
-
-    function setIcon(btn, html, label) {
-      btn.innerHTML = html;
-      btn.setAttribute("aria-label", label);
-    }
-
-    function lockControls() {
-      clearTimeout(hideTimer);
-      player.classList.add("controls-locked");
-      hideTimer = setTimeout(function () {
-        player.classList.remove("controls-locked");
-      }, 2600);
-    }
-
-    video.addEventListener("play", function () {
-      player.classList.add("isPlaying");
-      player.classList.remove("paused");
-      setIcon(playBtn, ICONS.pause, "Pause");
-      lockControls();
-    });
-    video.addEventListener("pause", function () {
-      player.classList.remove("isPlaying");
-      player.classList.add("paused");
-      setIcon(playBtn, ICONS.play, "Play");
-    });
-    video.addEventListener("ended", function () {
-      player.classList.remove("isPlaying");
-      player.classList.add("paused");
-    });
-
-    video.addEventListener("loadedmetadata", function () { durEl.textContent = fmtTime(video.duration); });
-    video.addEventListener("timeupdate", function () {
-      if (!video.duration) return;
-      var pct = (video.currentTime / video.duration) * 100;
-      playedEl.style.width = pct + "%";
-      knob.style.left = pct + "%";
-      curEl.textContent = fmtTime(video.currentTime);
-      progress.setAttribute("aria-valuenow", Math.round(pct));
-    });
-    video.addEventListener("progress", function () {
-      try {
-        if (video.buffered.length && video.duration) {
-          var end = video.buffered.end(video.buffered.length - 1);
-          bufferedEl.style.width = (end / video.duration) * 100 + "%";
-        }
-      } catch (e) { /* noop */ }
-    });
-
-    bigPlay.addEventListener("click", toggle);
-    playBtn.addEventListener("click", toggle);
-    video.addEventListener("click", function (e) {
-      if (e.target === video) toggle();
-    });
-    /* tap anywhere on the player (not just the video/big button) toggles play */
-    player.addEventListener("click", function (e) {
-      if (e.target.closest(".player-controls")) return;
-      if (e.target === video || e.target.closest("button")) return;
-      toggle();
-    });
-    video.addEventListener("dblclick", function (e) {
-      if (e.target === video) toggleFs();
-    });
-
-    /* seek */
-    function seekFromEvent(e) {
-      var rect = progress.getBoundingClientRect();
-      var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-      var ratio = Math.min(Math.max(x / rect.width, 0), 1);
-      if (video.duration) video.currentTime = ratio * video.duration;
-    }
-    var dragging = false;
-    progress.addEventListener("pointerdown", function (e) {
-      dragging = true;
-      progress.setPointerCapture(e.pointerId);
-      seekFromEvent(e);
-    });
-    progress.addEventListener("pointermove", function (e) { if (dragging) seekFromEvent(e); });
-    progress.addEventListener("pointerup", function () { dragging = false; });
-    progress.addEventListener("pointercancel", function () { dragging = false; });
-
-    /* volume */
-    function updateVolIcon() {
-      var muted = video.muted || video.volume === 0;
-      setIcon(muteBtn, muted ? ICONS.volMute : ICONS.volHigh, muted ? "Unmute" : "Mute");
-    }
-    muteBtn.addEventListener("click", function () { video.muted = !video.muted; updateVolIcon(); });
-    volInput.addEventListener("input", function () {
-      video.volume = parseFloat(volInput.value);
-      video.muted = video.volume === 0;
-      updateVolIcon();
-    });
-    updateVolIcon();
-
-    /* fullscreen */
-    function toggleFs() {
-      if (document.fullscreenElement) {
-        if (document.exitFullscreen) document.exitFullscreen();
-      } else if (player.requestFullscreen) {
-        player.requestFullscreen();
-      } else if (video.webkitEnterFullscreen) {
-        video.webkitEnterFullscreen(); /* iOS Safari */
-      }
-    }
-    fsBtn.addEventListener("click", toggleFs);
-
-    /* keyboard */
-    player.addEventListener("keydown", function (e) {
-      var k = e.key.toLowerCase();
-      if (k === " " || k === "k") { e.preventDefault(); toggle(); }
-      else if (k === "arrowright" && video.duration) { e.preventDefault(); video.currentTime = Math.min(video.currentTime + 5, video.duration); }
-      else if (k === "arrowleft" && video.duration) { e.preventDefault(); video.currentTime = Math.max(video.currentTime - 5, 0); }
-      else if (k === "m") { video.muted = !video.muted; updateVolIcon(); }
-      else if (k === "f") { toggleFs(); }
-    });
-
-    /* auto-hide controls while playing */
-    ["pointermove", "pointerdown", "touchstart"].forEach(function (ev) {
-      player.addEventListener(ev, function () {
-        if (isPlaying()) lockControls();
-      });
-    });
-    player.addEventListener("mouseleave", function () {
-      if (isPlaying()) player.classList.remove("controls-locked");
-    });
   }
 
   /* ======
@@ -415,7 +245,7 @@
   }
 
   /* active nav link */
-  var navLinks = $$(".site-nav > a:not(.nav-cta)");
+  var navLinks = $$(".site-nav > a");
   var sections = navLinks
     .map(function (a) { return $(a.getAttribute("href")); })
     .filter(Boolean);

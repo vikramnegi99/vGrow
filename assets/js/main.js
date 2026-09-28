@@ -160,6 +160,12 @@
     video.addEventListener("click", function (e) {
       if (e.target === video) toggle();
     });
+    /* tap anywhere on the player (not just the video/big button) toggles play */
+    player.addEventListener("click", function (e) {
+      if (e.target.closest(".player-controls")) return;
+      if (e.target === video || e.target.closest("button")) return;
+      toggle();
+    });
     video.addEventListener("dblclick", function (e) {
       if (e.target === video) toggleFs();
     });
@@ -245,7 +251,7 @@
       "</div></div>" +
       '<div class="lightbox-stage">' +
       '<button class="lb-btn lb-nav prev" type="button" aria-label="Previous image">' + ICONS.prev + "</button>" +
-      "<img alt=\"\" decoding=\"async\">" +
+      '"<img alt=\"\" decoding=\"async\">"' +
       '<button class="lb-btn lb-nav next" type="button" aria-label="Next image">' + ICONS.next + "</button>" +
       "</div>" +
       '<div class="lightbox-caption"></div>';
@@ -363,13 +369,6 @@
         cls: "btn btn-ghost",
         ext: !isPlaceholder(SITE.whatsapp),
         ph: isPlaceholder(SITE.whatsapp),
-      },
-      {
-        label: "Instagram",
-        href: isPlaceholder(SITE.instagram) ? "#" : SITE.instagram,
-        cls: "btn btn-ghost",
-        ext: !isPlaceholder(SITE.instagram),
-        ph: isPlaceholder(SITE.instagram),
       },
     ];
 

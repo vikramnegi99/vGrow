@@ -584,6 +584,7 @@ h1 {
   opacity: 0;
   transition: opacity 0.25s ease;
 }
+.lightbox[hidden] { display: none; }
 .lightbox.is-open { opacity: 1; }
 
 .lightbox-topbar {

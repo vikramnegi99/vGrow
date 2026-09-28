@@ -19,7 +19,7 @@ All content lives in **`assets/js/data.js`**:
 | Add a thumbnail | Copy any `{ ... }` object inside `thumbnails` and paste it below |
 | Add a video | Copy any `{ ... }` object inside `videos` and paste it below |
 | Remove an item | Delete its object |
-| Change email / WhatsApp / Instagram | Edit the `SITE` block at the top |
+| Change email / WhatsApp | Edit the `SITE` block at the top |
 
 Adding an item looks like this:
 
@@ -56,14 +56,11 @@ repository** — the site works entirely with public URLs.
 In `assets/js/data.js`, replace:
 
 ```js
-email:     "YOUR_EMAIL",             // e.g. "hello@example.com"
-whatsapp:  "YOUR_WHATSAPP_NUMBER",  // digits only with country code, e.g. "919876543210"
-instagram: "YOUR_INSTAGRAM_URL",    // e.g. "https://www.instagram.com/yourhandle"
+email:     "mrvickybusines@gmail.com",
+whatsapp:  "919528097342",  // digits with country code -> wa.me link
 ```
 
-The Email button becomes a `mailto:` link, WhatsApp becomes a `wa.me` link, and
-Instagram opens your profile in a new tab. While the placeholders are unset, the
-site shows you a reminder instead of a broken link.
+The Email button becomes a `mailto:` link and WhatsApp opens a `wa.me` chat.
 
 ## Replace the placeholder images
 
@@ -97,6 +94,7 @@ assets/
 
 - Videos play inline (HTML5, no YouTube embeds), with play/pause, seek,
   volume, fullscreen and a progress bar; nothing autoplays with sound.
+- Tapping anywhere on a video toggles play; controls appear on interaction.
 - Keyboard support: `Space/K` play-pause, `←/→` seek, `M` mute, `F` fullscreen.
 - Thumbnail lightbox: `←/→` navigate, `Esc` closes, zoom button (or double-click)
   zooms 2× and you can drag to pan.

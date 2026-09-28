@@ -8,10 +8,9 @@
 const SITE = {
   name: "VGrow",
 
-  // Contact - replace the placeholders:
-  email: "YOUR_EMAIL",             // e.g. "hello@vgrow.studio"
-  whatsapp: "YOUR_WHATSAPP_NUMBER", // digits only with country code, e.g. "919876543210"
-  instagram: "YOUR_INSTAGRAM_URL",  // e.g. "https://www.instagram.com/yourhandle"
+  // Contact:
+  email: "mrvickybusines@gmail.com",
+  whatsapp: "919528097342", // wa.me link opens https://wa.me/919528097342
 };
 
 /* Thumbnails - "Selected Thumbnail Work".
